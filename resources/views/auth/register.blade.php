@@ -24,6 +24,7 @@
         <option value="" disabled selected>Select Role</option>
         <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Customer</option>
          <option value="owner" {{ old('role') == 'owner' ? 'selected' : '' }}>owner</option>
+         
     </select>
 
     <x-input-error :messages="$errors->get('role')" class="mt-2" />

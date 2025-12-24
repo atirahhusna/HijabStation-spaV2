@@ -82,7 +82,7 @@ public function register(Request $request)
     public function DisplayTreatment()
    {
     $treatments = Treatment::all(); // You can also paginate or order if needed
-    return view('owner.Treatment.DisplayTreatment', compact('treatments'));
+    return view('Owner.Treatment.DisplayTreatment', compact('treatments'));
    }
 
    public function AddTreatment()
