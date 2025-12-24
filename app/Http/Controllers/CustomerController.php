@@ -15,7 +15,7 @@ class CustomerController extends Controller
     public function index()
     {
         $treatments = Treatment::all();
-        return view('customer.index', compact('treatments'));
+        return view('Customer.Index', compact('treatments'));
     }
 
       public function List()
