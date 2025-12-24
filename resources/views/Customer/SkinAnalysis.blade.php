@@ -196,9 +196,11 @@
                     showMessage(`❌ ${data.message}`,'error');
                 }
 
-            } catch(err){
-                showMessage("❌ Error during upload","error");
-            } finally {
+          } catch (err) {
+    showMessage("❌ Upload failed. Check server logs.","error");
+    console.error(err);
+}
+ finally {
                 uploadBtn.disabled = false;
                 loading.classList.add('hidden');
             }
