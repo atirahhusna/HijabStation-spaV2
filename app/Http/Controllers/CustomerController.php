@@ -97,7 +97,7 @@ class CustomerController extends Controller
         ->orderBy('date', 'asc')
         ->get();
 
-    return view('customer.Dashboard', compact('upcomingBookings'));
+    return view('Customer.Dashboard', compact('upcomingBookings'));
 }
 
 public function showBookingHistory()
@@ -110,7 +110,7 @@ public function showBookingHistory()
         ->orderBy('date', 'desc')
         ->get();
 
-    return view('customer.BookingList', compact('pastBookings'));
+    return view('Customer.BookingList', compact('pastBookings'));
 }
 
 
