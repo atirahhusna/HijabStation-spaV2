@@ -37,6 +37,20 @@ class ImageUploadController extends Controller
             }
             $image->move($destinationPath, $imageName);
 
+             // 🔹 Send image to local Python AI via ngrok
+            $imageUrl = asset('images/' . $imageName);
+            try {
+                $pythonApiUrl = 'https://hijabstation-spav2-production.up.railway.app/'; // replace with your ngrok URL
+                $response = Http::post($pythonApiUrl, [
+                    'image_url' => $imageUrl
+                ]);
+
+                \Log::info("📨 Python AI response: " . $response->body());
+
+            } catch (\Exception $e) {
+                \Log::error("❌ Error calling Python AI Service: " . $e->getMessage());
+            }
+
             return response()->json([
                 'success' => true,
                 'message' => 'Image uploaded successfully',
