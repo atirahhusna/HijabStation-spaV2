@@ -97,7 +97,7 @@ class CustomerController extends Controller
         ->orderBy('date', 'asc')
         ->get();
 
-    return view('customer.dashboard', compact('upcomingBookings'));
+    return view('customer.Dashboard', compact('upcomingBookings'));
 }
 
 public function showBookingHistory()
