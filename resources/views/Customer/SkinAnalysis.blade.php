@@ -67,7 +67,8 @@
                             <div id="skinTypeResult" class="text-center text-lg font-bold text-purple-600 mb-6"></div>
 
                             {{-- Products Grid --}}
-                           <div id="recommendedProducts" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                       <div id="recommendedProducts" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+
                                 {{-- Default empty cards --}}
                                 @for($i=0;$i<10;$i++)
                                     <div class="bg-white rounded-xl shadow p-4 flex items-center h-36">
