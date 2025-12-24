@@ -248,6 +248,7 @@
                                 <div>
                                     <p class="font-semibold text-gray-700">${product.title}</p>
                                     <p class="text-gray-500 text-sm">${product.label}</p>
+                                    <p class="text-gray-500 text-sm">${product.price}</p>
                                 </div>
                             </div>
                         `;
