@@ -97,7 +97,7 @@
             <div class="p-6 rounded-xl bg-pink-50">
                 <h3 class="text-lg font-semibold text-pink-600">Smart Recommendations</h3>
                 <p class="mt-3 text-sm text-gray-600">
-                    Receive personalized treatment suggestions based on your skin type.
+                    Receive personalized skincare suggestions based on your skin type.
                 </p>
             </div>
 
