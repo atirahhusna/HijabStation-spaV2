@@ -52,13 +52,13 @@
         <!-- Text -->
         <div>
             <h1 class="text-4xl font-bold text-gray-800 leading-tight">
-                Intelligent Beauty Care <br>
-                <span class="text-pink-500">Designed for Hijabi Women</span>
+                An AI Agent–Powered Intelligent Spa Management System for Skin Analysis and Personalized Skincare Recommendation <br>
+                <span class="text-pink-500">Designed for Women</span>
             </h1>
 
             <p class="mt-6 text-gray-600 leading-relaxed">
                 HijabStation Beauty is an AI-powered spa management system that provides
-                intelligent skin analysis and personalized treatment recommendations,
+                intelligent skin analysis and personalized skincare recommendations,
                 helping women make confident beauty decisions.
             </p>
 
@@ -77,7 +77,7 @@
 
         <!-- Image / Illustration -->
         <div class="flex justify-center">
-            <img src="{{ asset('images/beauty-spa.png') }}"
+            <img src="{{ asset('images/hijabstation-logo.png') }}"
                  alt="HijabStation Beauty"
                  class="rounded-xl shadow-lg w-full max-w-md">
         </div>
