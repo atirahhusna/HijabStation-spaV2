@@ -75,12 +75,7 @@
             </div>
         </div>
 
-        <!-- Image / Illustration -->
-        <div class="flex justify-center">
-            <img src="{{ asset('images/hijabstation-logo.png') }}"
-                 alt="HijabStation Beauty"
-                 class="rounded-xl shadow-lg w-full max-w-md">
-        </div>
+       
     </div>
 
     <!-- Features Section -->
