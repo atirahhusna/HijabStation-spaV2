@@ -11,7 +11,7 @@ use App\Models\User;
 
 class OwnerController extends Controller
 {
- public function store(Request $request)
+  public function store(Request $request)
 {
     $validated = $request->validate([
         'name' => 'required|string',
@@ -22,34 +22,31 @@ class OwnerController extends Controller
         'slots' => 'nullable|array',
     ]);
 
-    // Upload image to Cloudinary
-    $imageUrl = cloudinary()->upload(
-        $request->file('picture')->getRealPath(),
-        ['folder' => 'treatments']
-    )->getSecurePath();
+    // Save picture
+    $imagePath = $request->file('picture')->store('treatments', 'public');
 
-    // Slot handling
+    // Filter and format slots
     $slotTime = [];
     foreach ($request->slots ?? [] as $time => $slot) {
         if (isset($slot['enabled'])) {
-            $count = min((int)($slot['count'] ?? 1), 15);
+            $count = min((int)($slot['count'] ?? 1), 15); // limit to 15
             $slotTime[$time] = $count;
         }
     }
 
+    // Save treatment
     Treatment::create([
         't_name' => $validated['name'],
         't_price' => $validated['price'],
         't_duration' => $validated['duration'],
         't_desc' => $validated['description'],
-        't_pic' => $imageUrl, // ✅ SAVE URL
+        't_pic' => $imagePath,
         'slotNum' => array_sum($slotTime),
-        'slotTime' => $slotTime,
+        'slotTime' => json_encode($slotTime),
     ]);
 
-    return redirect()->back()->with('success', 'Treatment added successfully.');
-}
-
+        return redirect()->back()->with('success', 'Treatment added successfully.');
+    }
 
  // Display the page with paginated users
     public function registerStaff(Request $request)
@@ -132,14 +129,11 @@ public function update(Request $request, $id)
     }
 
     if ($request->hasFile('picture')) {
-    $imageUrl = cloudinary()->upload(
-        $request->file('picture')->getRealPath(),
-        ['folder' => 'treatments']
-    )->getSecurePath();
-
-    $treatment->t_pic = $imageUrl;
-}
-
+        $image = $request->file('picture');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->storeAs('public/treatments', $imageName);
+        $treatment->t_pic = 'treatments/' . $imageName;
+    }
 
     // Convert updated slots to slotTime format
     $slotTime = [];
@@ -176,7 +170,7 @@ public function destroy($id)
 
     // Delete image if exists
     if ($treatment->t_pic && Storage::disk('public')->exists($treatment->t_pic)) {
-       $treatment->delete();
+        Storage::disk('public')->delete($treatment->t_pic);
     }
 
     $treatment->delete();

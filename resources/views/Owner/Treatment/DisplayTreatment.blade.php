@@ -49,8 +49,8 @@
 
                                 {{-- Treatment Image --}}
                                 @if ($treatment->t_pic)
-                                   <img src="{{ $treatment->t_pic }}" alt="Treatment Image" class="w-full h-48 object-cover rounded">
-
+                                    <img src="{{ asset('storage/' . $treatment->t_pic) }}"
+                                         class="w-full h-32 object-cover rounded-md mb-2">
                                 @else
                                     <div class="w-full h-32 bg-gray-300 rounded-md mb-2 flex items-center justify-center text-gray-500">
                                         No Image
