@@ -101,57 +101,64 @@ public function update(Request $request, $id)
 {
     $treatment = Treatment::findOrFail($id);
 
-    // Make all fields optional during update
+    // ✅ Correct validation (match Blade names)
     $request->validate([
-        't_name' => 'nullable|string|max:255',
-        't_price' => 'nullable|numeric|min:0',
-        't_desc' => 'nullable|string',
-        't_pic' => 'nullable|string',
-        't_duration' => 'nullable|integer|min:1',
-        // slots handled separately
+        'name' => 'nullable|string|max:255',
+        'price' => 'nullable|numeric|min:0',
+        'duration' => 'nullable|string|max:50',
+        'description' => 'nullable|string',
+        'picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'slots' => 'nullable|array',
     ]);
 
-    // Only update fields if they are provided
-    if ($request->filled('t_name')) {
-        $treatment->t_name = $request->t_name;
+    // ✅ Update text fields
+    if ($request->filled('name')) {
+        $treatment->t_name = $request->name;
     }
 
-    if ($request->filled('t_price')) {
-        $treatment->t_price = $request->t_price;
+    if ($request->filled('price')) {
+        $treatment->t_price = $request->price;
     }
 
-    if ($request->filled('t_desc')) {
-        $treatment->t_desc = $request->t_desc;
+    if ($request->filled('duration')) {
+        $treatment->t_duration = $request->duration;
     }
 
-    if ($request->filled('t_duration')) {
-        $treatment->t_duration = $request->t_duration;
+    if ($request->filled('description')) {
+        $treatment->t_desc = $request->description;
     }
 
+    // ✅ Update image
     if ($request->hasFile('picture')) {
-        $image = $request->file('picture');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->storeAs('public/treatments', $imageName);
-        $treatment->t_pic = 'treatments/' . $imageName;
-    }
 
-    // Convert updated slots to slotTime format
-    $slotTime = [];
-
-    if ($request->has('slots')) {
-        foreach ($request->input('slots') as $time => $slot) {
-            if (isset($slot['enabled'])) {
-                $slotTime[$time] = (int) $slot['count'];
-            }
+        // delete old image
+        if ($treatment->t_pic && Storage::disk('public')->exists($treatment->t_pic)) {
+            Storage::disk('public')->delete($treatment->t_pic);
         }
 
-        $treatment->slotTime = $slotTime;
+        $imagePath = $request->file('picture')->store('treatments', 'public');
+        $treatment->t_pic = $imagePath;
     }
+
+    // ✅ Handle slots properly (JSON)
+    $slotTime = [];
+
+    foreach ($request->slots ?? [] as $time => $slot) {
+        if (isset($slot['enabled'])) {
+            $slotTime[$time] = min((int)($slot['count'] ?? 1), 15);
+        }
+    }
+
+    $treatment->slotTime = json_encode($slotTime);
+    $treatment->slotNum  = array_sum($slotTime);
 
     $treatment->save();
 
-    return redirect()->route('Owner.Treatment.DisplayTreatment')->with('success', 'Treatment updated successfully!');
+    return redirect()
+        ->route('Owner.Treatment.DisplayTreatment')
+        ->with('success', 'Treatment updated successfully!');
 }
+
 
 public function todayBookings()
 {
