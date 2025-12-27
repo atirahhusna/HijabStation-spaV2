@@ -5,9 +5,7 @@
         </h2>
     </x-slot>
 
-    <!-- Same pink background as landing page -->
     <div class="py-12 bg-pink-200 min-h-screen">
-
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <!-- Flash Message -->
@@ -28,20 +26,18 @@
                 </script>
             @endif
 
-            <!-- Main Card (same layout as landing page) -->
+            <!-- Main Card -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     <!-- GRID -->
                     <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                 <div onclick="location.href='{{ route('Owner.Treatment.AddTreatment') }}'"
-     class="cursor-pointer border-2 border-pink-400 border-dotted rounded-lg flex items-center justify-center h-56 md:h-64 bg-white hover:bg-pink-200 transition">
-    <span class="text-7xl md:text-8xl text-pink-500 font-light">+</span>
-</div>
 
-
-
-
+                        <!-- Add Treatment Card -->
+                        <div onclick="location.href='{{ route('Owner.Treatment.AddTreatment') }}'"
+                             class="cursor-pointer border-2 border-pink-400 border-dotted rounded-lg flex items-center justify-center h-56 md:h-64 bg-white hover:bg-pink-200 transition">
+                            <span class="text-7xl md:text-8xl text-pink-500 font-light">+</span>
+                        </div>
 
                         <!-- Treatments List -->
                         @forelse ($treatments as $treatment)
@@ -86,8 +82,8 @@
                         @empty
                             <p class="text-gray-600 col-span-3 text-center">No treatments available.</p>
                         @endforelse
-                    </div>
 
+                    </div>
                 </div>
             </div>
 
@@ -128,7 +124,8 @@
 
     <script>
         function confirmDelete(id) {
-            document.getElementById('deleteForm').action = `/Owner/DeleteTreatment/${id}`;
+            // Set the form action to match route
+            document.getElementById('deleteForm').action = "{{ url('Owner/delete') }}/" + id;
             document.getElementById('deleteModal').classList.remove('hidden');
         }
 
