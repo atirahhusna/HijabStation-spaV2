@@ -48,7 +48,7 @@
                 <input type="text" id="owner-search" placeholder="Search Owners..." 
                     class="mb-4 rounded-md border-gray-300 px-4 py-2 w-full shadow-sm">
                 <div id="owner-table">
-                    @include('owner.user-table', ['users' => $owners])
+                    @include('Owner.user-table', ['users' => $owners])
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
                 <input type="text" id="staff-search" placeholder="Search Staff..." 
                     class="mb-4 rounded-md border-gray-300 px-4 py-2 w-full shadow-sm">
                 <div id="staff-table">
-                    @include('owner.user-table', ['users' => $staffs])
+                    @include('Owner.user-table', ['users' => $staffs])
                 </div>
             </div>
 
