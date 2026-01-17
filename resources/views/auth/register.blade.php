@@ -23,7 +23,6 @@
         class="block mt-1 w-full rounded-md border-pink-200 focus:ring-pink-300 focus:border-pink-300">
         <option value="" disabled selected>Select Role</option>
         <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Customer</option>
-         <option value="owner" {{ old('role') == 'owner' ? 'selected' : '' }}>owner</option>
          
     </select>
 
